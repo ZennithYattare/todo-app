@@ -31,11 +31,6 @@ body {
 	min-height: 100vh;
 }
 
-h1 {
-	font-size: 3.2em;
-	line-height: 1.1;
-}
-
 /* NOTE: Commented out to use as reference */
 /* button {
   border-radius: 8px;
