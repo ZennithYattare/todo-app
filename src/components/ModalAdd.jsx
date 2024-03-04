@@ -8,12 +8,16 @@ import Modal from "react-bootstrap/Modal";
 
 import { saveTodo } from "../services/storage";
 
-const ModalAdd = (props) => {
+const ModalAdd = ({ addTodo, onHide, ...props }) => {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [deadline, setDeadline] = useState(new Date());
 
-	const handleSave = () => {
+	const handleSave = (event) => {
+		event.preventDefault();
+
+		onHide();
+
 		const newTodo = {
 			id: uuidv4(),
 			title: title,
@@ -25,7 +29,15 @@ const ModalAdd = (props) => {
 
 		saveTodo(newTodo);
 
-		props.addTodo(newTodo);
+		addTodo(newTodo);
+
+		setTitle("");
+		setDescription("");
+		setDeadline("");
+	};
+
+	const handleExit = () => {
+		onHide();
 
 		setTitle("");
 		setDescription("");
@@ -39,21 +51,34 @@ const ModalAdd = (props) => {
 			aria-labelledby="contained-modal-title-vcenter"
 			centered
 		>
-			<Modal.Header closeButton>
+			<Modal.Header closeButton onHide={handleExit}>
 				<Modal.Title id="contained-modal-title-vcenter">
-					Add Todo
+					Add To do
 				</Modal.Title>
 			</Modal.Header>
-			<Modal.Body>
-				<Form>
+			<Form onSubmit={handleSave}>
+				<Modal.Body>
+					<Form.Group className="mb-3">
+						<Form.Label>Due on</Form.Label>
+						<Form.Control
+							type="datetime-local"
+							placeholder="Enter due date and time"
+							autoFocus
+							value={deadline}
+							onChange={(e) => {
+								setDeadline(e.target.value);
+							}}
+							required
+						/>
+					</Form.Group>
 					<Form.Group className="mb-3">
 						<Form.Label>Title</Form.Label>
 						<Form.Control
 							type="text"
 							placeholder="Enter title"
-							autoFocus
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
+							required
 						/>
 					</Form.Group>
 					<Form.Group className="mb-3">
@@ -64,24 +89,19 @@ const ModalAdd = (props) => {
 							placeholder="Enter description"
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
+							required
 						/>
 					</Form.Group>
-				</Form>
-			</Modal.Body>
-			<Modal.Footer>
-				<Button variant="danger" onClick={props.onHide}>
-					Close
-				</Button>
-				<Button
-					variant="success"
-					onClick={() => {
-						handleSave();
-						props.onHide();
-					}}
-				>
-					Save
-				</Button>
-			</Modal.Footer>
+					<Modal.Footer>
+						<Button variant="danger" onClick={() => handleExit()}>
+							Close
+						</Button>
+						<Button variant="success" type="submit">
+							Save
+						</Button>
+					</Modal.Footer>
+				</Modal.Body>
+			</Form>
 		</Modal>
 	);
 };
