@@ -90,42 +90,7 @@ function App() {
 										}
 									)}
 								</p>
-								<p>
-									{"Created: "}
-									{new Date(
-										todo.created_at
-									).toLocaleDateString("en-US", {
-										year: "numeric",
-										month: "long",
-										day: "numeric",
-									})}
-									{" at "}
-									{new Date(
-										todo.created_at
-									).toLocaleTimeString("en-US", {
-										hour: "2-digit",
-										minute: "2-digit",
-										hour12: true,
-									})}
-								</p>
-								<p>
-									{"Last updated: "}
-									{new Date(
-										todo.updated_at
-									).toLocaleDateString("en-US", {
-										year: "numeric",
-										month: "long",
-										day: "numeric",
-									})}
-									{" at "}
-									{new Date(
-										todo.updated_at
-									).toLocaleTimeString("en-US", {
-										hour: "2-digit",
-										minute: "2-digit",
-										hour12: true,
-									})}
-								</p>
+
 								<Button
 									variant="primary"
 									onClick={() => {
@@ -134,7 +99,7 @@ function App() {
 										}
 									}}
 								>
-									Update
+									View/Edit
 								</Button>
 								<Button
 									variant="danger"
