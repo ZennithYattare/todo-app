@@ -17,14 +17,17 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 	const [deadline, setDeadline] = useState("");
 	const [created_at, setCreated_at] = useState("");
 	const [updated_at, setUpdated_at] = useState("");
+	const [completed, setCompleted] = useState(false);
 
 	useEffect(() => {
 		if (todo) {
+			setId(todo.id);
 			setTitle(todo.title);
 			setDescription(todo.description);
 			setDeadline(todo.deadline);
 			setCreated_at(todo.created_at);
 			setUpdated_at(todo.updated_at);
+			setCompleted(todo.completed);
 		}
 	}, [todo]);
 
@@ -40,6 +43,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 			deadline: deadline,
 			created_at: created_at,
 			updated_at: new Date().toISOString(),
+			completed: completed,
 		};
 
 		editTodo(updatedTodo);

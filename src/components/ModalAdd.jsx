@@ -23,6 +23,7 @@ const ModalAdd = ({ addTodo, onHide, ...props }) => {
 			title: title,
 			description: description,
 			deadline: deadline,
+			completed: false,
 			created_at: new Date().toISOString(),
 			updated_at: new Date().toISOString(),
 		};
