@@ -11,15 +11,20 @@ import Col from "react-bootstrap/Col";
 import { editTodo } from "../services/storage";
 
 const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
+	const [id, setId] = useState("");
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [deadline, setDeadline] = useState("");
+	const [created_at, setCreated_at] = useState("");
+	const [updated_at, setUpdated_at] = useState("");
 
 	useEffect(() => {
 		if (todo) {
 			setTitle(todo.title);
 			setDescription(todo.description);
 			setDeadline(todo.deadline);
+			setCreated_at(todo.created_at);
+			setUpdated_at(todo.updated_at);
 		}
 	}, [todo]);
 
@@ -29,11 +34,11 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 		onHide();
 
 		const updatedTodo = {
-			id: todo.id,
+			id: id,
 			title: title,
 			description: description,
 			deadline: deadline,
-			created_at: todo.created_at,
+			created_at: created_at,
 			updated_at: new Date().toISOString(),
 		};
 
@@ -104,7 +109,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 						<Row>
 							<Col>
 								{"Created: "}
-								{new Date(todo.created_at).toLocaleDateString(
+								{new Date(created_at).toLocaleDateString(
 									"en-US",
 									{
 										year: "numeric",
@@ -113,7 +118,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 									}
 								)}
 								{" at "}
-								{new Date(todo.created_at).toLocaleTimeString(
+								{new Date(created_at).toLocaleTimeString(
 									"en-US",
 									{
 										hour: "2-digit",
@@ -124,7 +129,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 							</Col>
 							<Col className="align-right">
 								{"Last updated: "}
-								{new Date(todo.updated_at).toLocaleDateString(
+								{new Date(updated_at).toLocaleDateString(
 									"en-US",
 									{
 										year: "numeric",
@@ -133,7 +138,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 									}
 								)}
 								{" at "}
-								{new Date(todo.updated_at).toLocaleTimeString(
+								{new Date(updated_at).toLocaleTimeString(
 									"en-US",
 									{
 										hour: "2-digit",
