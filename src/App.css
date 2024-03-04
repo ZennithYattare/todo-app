@@ -61,6 +61,10 @@
 	font-weight: 400;
 }
 
+.strike-through {
+	text-decoration: line-through;
+}
+
 /* NOTE: TABLE styling */
 
 .div-table {
