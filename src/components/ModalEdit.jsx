@@ -13,7 +13,7 @@ import { editTodo } from "../services/storage";
 const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
-	const [deadline, setDeadline] = useState(new Date());
+	const [deadline, setDeadline] = useState("");
 
 	useEffect(() => {
 		if (todo) {
@@ -23,12 +23,17 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 		}
 	}, [todo]);
 
-	const handleEdit = () => {
+	const handleEdit = (event) => {
+		event.preventDefault();
+
+		onHide();
+
 		const updatedTodo = {
 			id: todo.id,
 			title: title,
 			description: description,
 			deadline: deadline,
+			created_at: todo.created_at,
 			updated_at: new Date().toISOString(),
 		};
 
@@ -57,8 +62,9 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 					View/Edit To do
 				</Modal.Title>
 			</Modal.Header>
-			<Modal.Body>
-				<Form>
+
+			<Form onSubmit={handleEdit}>
+				<Modal.Body>
 					<Form.Group className="mb-3">
 						<Form.Label>Due on</Form.Label>
 						<Form.Control
@@ -80,6 +86,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 							autoFocus
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
+							required
 						/>
 					</Form.Group>
 					<Form.Group className="mb-3">
@@ -90,6 +97,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 							placeholder="Enter description"
 							value={description}
 							onChange={(e) => setDescription(e.target.value)}
+							required
 						/>
 					</Form.Group>
 					<Container>
@@ -136,22 +144,16 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 							</Col>
 						</Row>
 					</Container>
-				</Form>
-			</Modal.Body>
-			<Modal.Footer>
-				<Button variant="danger" onClick={onHide}>
-					Close
-				</Button>
-				<Button
-					variant="success"
-					onClick={() => {
-						handleEdit();
-						onHide();
-					}}
-				>
-					Save
-				</Button>
-			</Modal.Footer>
+					<Modal.Footer>
+						<Button variant="danger" onClick={onHide}>
+							Close
+						</Button>
+						<Button variant="success" type="submit">
+							Save
+						</Button>
+					</Modal.Footer>
+				</Modal.Body>
+			</Form>
 		</Modal>
 	);
 };
