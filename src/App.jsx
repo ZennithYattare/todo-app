@@ -71,7 +71,7 @@ function App() {
 								<h3>{todo.title}</h3>
 								<p>{todo.description}</p>
 								<p>
-									{"Deadline: "}
+									{"Due on: "}
 									{new Date(todo.deadline).toLocaleDateString(
 										"en-US",
 										{
@@ -109,7 +109,7 @@ function App() {
 									})}
 								</p>
 								<p>
-									{"Updated: "}
+									{"Last updated: "}
 									{new Date(
 										todo.updated_at
 									).toLocaleDateString("en-US", {
