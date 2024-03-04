@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import Modal from "react-bootstrap/Modal";
 
 import Header from "./components/Header";
 import ModalAdd from "./components/ModalAdd";
@@ -11,12 +12,24 @@ import "./App.css";
 import { getAllTodos, editTodo, deleteTodo } from "./services/storage";
 
 function App() {
-	const [todos, setTodos] = useState(getAllTodos());
+	// Initialize todos state with a checked property
+	const [todos, setTodos] = useState(
+		getAllTodos()
+			.filter((todo) => !todo.completed)
+			.map((todo) => ({ ...todo, checked: false }))
+	);
+	const [todosDone, setTodosDone] = useState(
+		getAllTodos()
+			.filter((todo) => todo.completed)
+			.map((todo) => ({ ...todo, checked: false }))
+	);
 	const [currentTodo, setCurrentTodo] = useState(null);
 	const [todoArray, setTodoArray] = useState([]);
+	const [selectAllChecked, setSelectAllChecked] = useState(false);
 
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showEditModal, setShowEditModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const handleUpdate = (id) => {
 		const todoToUpdate = todos.find((todo) => todo.id === id);
@@ -24,10 +37,23 @@ function App() {
 		setShowEditModal(true);
 	};
 
-	const handleDelete = (id) => {
-		deleteTodo(id);
+	const handleDelete = () => {
+		todoArray.forEach((id) => {
+			deleteTodo(id);
+		});
 
-		setTodos(getAllTodos());
+		setTodos(
+			getAllTodos()
+				.filter((todo) => !todo.completed)
+				.map((todo) => ({ ...todo, checked: false }))
+		);
+
+		setTodosDone(
+			getAllTodos()
+				.filter((todo) => todo.completed)
+				.map((todo) => ({ ...todo, checked: false }))
+		);
+		setTodoArray([]); // Clear todoArray after deletion
 	};
 
 	const markAsPending = () => {
@@ -54,6 +80,13 @@ function App() {
 
 		// Update the state with the updated todos
 		setTodos(updatedTodos);
+
+		// update the state with the updated todosDone
+		setTodosDone(
+			getAllTodos()
+				.filter((todo) => todo.completed)
+				.map((todo) => ({ ...todo, checked: false }))
+		);
 
 		// Clear todoArray
 		setTodoArray([]);
@@ -84,6 +117,13 @@ function App() {
 		// Update the state with the updated todos
 		setTodos(updatedTodos);
 
+		// update the state with the updated todosDone
+		setTodosDone(
+			getAllTodos()
+				.filter((todo) => todo.completed)
+				.map((todo) => ({ ...todo, checked: false }))
+		);
+
 		// Clear todoArray
 		setTodoArray([]);
 	};
@@ -98,6 +138,39 @@ function App() {
 			prevTodos.map((todo) =>
 				todo.id === updatedTodo.id ? updatedTodo : todo
 			)
+		);
+	};
+
+	const ModalDelete = () => {
+		return (
+			<Modal
+				show={showDeleteModal}
+				onHide={() => setShowDeleteModal(false)}
+			>
+				<Modal.Header closeButton>
+					<Modal.Title>Delete Todo(s)</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<p>Are you sure you want to delete?</p>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button
+						variant="secondary"
+						onClick={() => setShowDeleteModal(false)}
+					>
+						Cancel
+					</Button>
+					<Button
+						variant="danger"
+						onClick={() => {
+							handleDelete();
+							setShowDeleteModal(false);
+						}}
+					>
+						Delete
+					</Button>
+				</Modal.Footer>
+			</Modal>
 		);
 	};
 
@@ -122,10 +195,28 @@ function App() {
 				onHide={() => setShowEditModal(false)}
 			/>
 
+			<ModalDelete />
+
 			<Tabs
 				defaultActiveKey="pending"
 				id="uncontrolled-tab-example"
 				className="mb-3"
+				onSelect={() => {
+					setSelectAllChecked(false);
+
+					// Clear the checked state of all todos
+					setTodos(
+						todos.map((todo) => ({ ...todo, checked: false }))
+					);
+
+					// Clear the checked state of all todosDone
+					setTodosDone(
+						todosDone.map((todo) => ({ ...todo, checked: false }))
+					);
+
+					// Clear todoArray
+					setTodoArray([]);
+				}}
 			>
 				<Tab eventKey="pending" title="Pending">
 					<Button
@@ -135,9 +226,48 @@ function App() {
 						Add Todo
 					</Button>
 
-					<Button variant="success" onClick={markAsDone}>
+					<Button
+						variant="success"
+						onClick={markAsDone}
+						disabled={todoArray.length === 0}
+					>
 						Mark as Done
 					</Button>
+
+					<Button
+						variant="danger"
+						onClick={() => setShowDeleteModal(true)}
+						disabled={todoArray.length === 0}
+					>
+						Delete
+					</Button>
+
+					<Form.Check
+						type="checkbox"
+						label="Select All"
+						checked={selectAllChecked}
+						onChange={(e) => {
+							const newCheckedState = e.target.checked;
+							setSelectAllChecked(newCheckedState); // Update the selectAllChecked state
+
+							// Update the checked state of all todos
+							setTodos(
+								todos.map((todo) => ({
+									...todo,
+									checked: newCheckedState,
+								}))
+							);
+
+							if (newCheckedState) {
+								// If the checkbox is checked, add the ids of all todos to todoArray
+								setTodoArray(todos.map((todo) => todo.id));
+							} else {
+								// If the checkbox is unchecked, clear todoArray
+								setTodoArray([]);
+							}
+						}}
+					/>
+
 					{todos.map((todo) => {
 						if (!todo.completed) {
 							return (
@@ -145,16 +275,31 @@ function App() {
 									<Form>
 										<Form.Check
 											type="checkbox"
+											checked={todo.checked} // Bind the checked attribute to the checked property of the todo
 											label={todo.title}
 											onChange={(e) => {
+												const updatedTodo = {
+													...todo,
+													checked: e.target.checked,
+												};
+
+												// Update the checked state of the todo
+												setTodos(
+													todos.map((t) =>
+														t.id === todo.id
+															? updatedTodo
+															: t
+													)
+												);
+
 												if (e.target.checked) {
-													// If the checkbox is checked, add the todo.id to arrayTodo
+													// If the checkbox is checked, add the todo.id to todoArray
 													setTodoArray([
 														...todoArray,
 														todo.id,
 													]);
 												} else {
-													// If the checkbox is unchecked, remove the todo.id from arrayTodo
+													// If the checkbox is unchecked, remove the todo.id from todoArray
 													setTodoArray(
 														todoArray.filter(
 															(id) =>
@@ -196,26 +341,55 @@ function App() {
 									>
 										View/Edit
 									</Button>
-									<Button
-										variant="danger"
-										onClick={() => {
-											if (todo) {
-												handleDelete(todo.id);
-											}
-										}}
-									>
-										Delete
-									</Button>
 								</div>
 							);
 						}
 					})}
 				</Tab>
 				<Tab eventKey="done" title="Done">
-					<Button variant="success" onClick={markAsPending}>
+					<Button
+						variant="success"
+						onClick={markAsPending}
+						disabled={todoArray.length === 0}
+					>
 						Mark as Pending
 					</Button>
-					{todos.map((todo) => {
+
+					<Button
+						variant="danger"
+						onClick={() => setShowDeleteModal(true)}
+						disabled={todoArray.length === 0}
+					>
+						Delete
+					</Button>
+
+					<Form.Check
+						type="checkbox"
+						label="Select All"
+						checked={selectAllChecked}
+						onChange={(e) => {
+							const newCheckedState = e.target.checked;
+							setSelectAllChecked(newCheckedState); // Update the selectAllChecked state
+
+							// Update the checked state of all todos
+							setTodosDone(
+								todosDone.map((todo) => ({
+									...todo,
+									checked: newCheckedState,
+								}))
+							);
+
+							if (newCheckedState) {
+								// If the checkbox is checked, add the ids of all todos to todoArray
+								setTodoArray(todosDone.map((todo) => todo.id));
+							} else {
+								// If the checkbox is unchecked, clear todoArray
+								setTodoArray([]);
+							}
+						}}
+					/>
+
+					{todosDone.map((todo) => {
 						if (todo.completed) {
 							return (
 								<div key={todo.id}>
@@ -223,7 +397,22 @@ function App() {
 										<Form.Check
 											type="checkbox"
 											label={todo.title}
+											checked={todo.checked}
 											onChange={(e) => {
+												const updatedTodo = {
+													...todo,
+													checked: e.target.checked,
+												};
+
+												// Update the checked state of the todo
+												setTodosDone(
+													todosDone.map((t) =>
+														t.id === todo.id
+															? updatedTodo
+															: t
+													)
+												);
+
 												if (e.target.checked) {
 													// If the checkbox is checked, add the todo.id to arrayTodo
 													setTodoArray([
@@ -276,16 +465,6 @@ function App() {
 										}}
 									>
 										View/Edit
-									</Button>
-									<Button
-										variant="danger"
-										onClick={() => {
-											if (todo) {
-												handleDelete(todo.id);
-											}
-										}}
-									>
-										Delete
 									</Button>
 								</div>
 							);
