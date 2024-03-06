@@ -78,12 +78,24 @@
 /* NOTE: TABLE styling */
 
 .div-table {
-	position: relative;
-	float: left;
-	min-width: 100%;
-	padding-bottom: 180px;
-	padding-left: 96px;
-	padding-right: 96px;
+	font-family: "Lato", sans-serif;
+}
+
+.div-table input[type="checkbox"] {
+	cursor: pointer;
+	transform: scale(1.1); /* Change this to the scale you want */
+}
+
+.div-table td,
+.div-table td input[type="checkbox"] {
+	cursor: pointer;
+}
+
+.table-data-description {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 200px; /* Change this to the maximum width you want */
 }
 
 /* NOTE: CONTENT styling */
@@ -100,6 +112,15 @@
 	.div-content {
 		margin: 1rem 1rem;
 	}
+}
+
+.header-not-found {
+	font-family: "Roboto Slab", sans-serif;
+	font-size: 24px;
+	line-height: 29px;
+	font-weight: 400;
+	color: #6c757d;
+	margin-top: 2rem;
 }
 
 /* NOTE: BUTTON styling */
