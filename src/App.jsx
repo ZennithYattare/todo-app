@@ -202,7 +202,7 @@ function App() {
 				<Tabs
 					defaultActiveKey="pending"
 					id="uncontrolled-tab-example"
-					className="mb-3"
+					className="mb-3 tab"
 					onSelect={() => {
 						setSelectAllChecked(false);
 
