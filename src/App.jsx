@@ -146,6 +146,7 @@ function App() {
 			<Modal
 				show={showDeleteModal}
 				onHide={() => setShowDeleteModal(false)}
+				centered
 			>
 				<Modal.Header closeButton>
 					<Modal.Title>Delete Todo(s)</Modal.Title>
@@ -227,11 +228,11 @@ function App() {
 							bsPrefix="button-add button-font"
 							onClick={() => setShowAddModal(true)}
 						>
-							Add Todo
+							Add To do
 						</Button>
 
 						<Button
-							bsPrefix="button-font"
+							bsPrefix="button-font button-primary"
 							variant="success"
 							onClick={markAsDone}
 							disabled={todoArray.length === 0}
@@ -240,7 +241,7 @@ function App() {
 						</Button>
 
 						<Button
-							bsPrefix="button-font"
+							bsPrefix="button-font button-danger"
 							variant="danger"
 							onClick={() => setShowDeleteModal(true)}
 							disabled={todoArray.length === 0}

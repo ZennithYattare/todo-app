@@ -24,7 +24,7 @@
 	padding: 0.5rem 1rem;
 	width: 100%;
 	top: 0;
-	background-color: #ffffff;
+	background-color: #f8fffe;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 	margin-bottom: 2rem;
 }
@@ -92,7 +92,7 @@
 	margin: 0 auto;
 	max-width: 1280px;
 	padding: 0.5rem 1rem;
-	background-color: #ffffff;
+	background-color: #f8fffe;
 	border-radius: 3px;
 }
 
@@ -128,9 +128,63 @@
 	text-decoration: none;
 	display: inline-block;
 	margin: 4px 2px;
-	transition-duration: 0.4s;
 }
 
 .button-add:hover {
-	filter: brightness(80%);
+	transition: 0.3s;
+	background-color: #9b2edf;
+}
+
+.button-primary {
+	background-color: #109280;
+	border-radius: 3px;
+	border: none;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: "Roboto Slab", sans-serif;
+	font-size: 14px;
+	line-height: 21px;
+	font-weight: 400;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	margin: 4px 2px;
+}
+
+.button-primary:not(:disabled):hover {
+	transition: 0.3s;
+	background-color: #14b7a0;
+}
+
+.button-primary:disabled {
+	opacity: calc(0.7);
+	cursor: default;
+}
+
+.button-danger {
+	background-color: #f4512c;
+	border-radius: 3px;
+	border: none;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: "Roboto Slab", sans-serif;
+	font-size: 14px;
+	line-height: 21px;
+	font-weight: 400;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	margin: 4px 2px;
+}
+
+.button-danger:not(:disabled):hover {
+	transition: 0.3s;
+	background-color: #ff7f4d;
+}
+
+.button-danger:disabled {
+	opacity: calc(0.7);
+	cursor: default;
 }
