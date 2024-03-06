@@ -224,13 +224,14 @@ function App() {
 				>
 					<Tab eventKey="pending" title="Pending">
 						<Button
-							variant="primary"
+							bsPrefix="button-add button-font"
 							onClick={() => setShowAddModal(true)}
 						>
 							Add Todo
 						</Button>
 
 						<Button
+							bsPrefix="button-font"
 							variant="success"
 							onClick={markAsDone}
 							disabled={todoArray.length === 0}
@@ -239,6 +240,7 @@ function App() {
 						</Button>
 
 						<Button
+							bsPrefix="button-font"
 							variant="danger"
 							onClick={() => setShowDeleteModal(true)}
 							disabled={todoArray.length === 0}
@@ -247,6 +249,7 @@ function App() {
 						</Button>
 
 						<Form.Check
+							className="paragraph-font"
 							type="checkbox"
 							label="Select All"
 							checked={selectAllChecked}

@@ -1,4 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 #root {
 	/* font-family: "Montserrat", "Roboto Slab", sans-serif; */
@@ -60,7 +64,8 @@
 	text-align: right;
 }
 
-.paragraph-weight-400 {
+.paragraph-body-font {
+	font-family: "Lato", sans-serif;
 	font-size: 13px;
 	line-height: 19px;
 	font-weight: 400;
@@ -95,4 +100,37 @@
 	.div-content {
 		margin: 1rem 1rem;
 	}
+}
+
+/* NOTE: BUTTON styling */
+
+.button-font {
+	font-family: "Roboto Slab", sans-serif;
+	font-size: 14px;
+	line-height: 21px;
+	font-weight: 400;
+	text-align: center;
+	color: #ffffff;
+}
+
+.button-add {
+	background-color: #5e1b89;
+	border-radius: 3px;
+	border: none;
+	color: #ffffff;
+	cursor: pointer;
+	font-family: "Roboto Slab", sans-serif;
+	font-size: 14px;
+	line-height: 21px;
+	font-weight: 400;
+	padding: 0.5rem 1rem;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	margin: 4px 2px;
+	transition-duration: 0.4s;
+}
+
+.button-add:hover {
+	filter: brightness(80%);
 }
