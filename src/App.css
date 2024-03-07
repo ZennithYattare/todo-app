@@ -8,7 +8,7 @@
 	/* font-family: "Montserrat", "Roboto Slab", sans-serif; */
 	/* max-width: 1280px; */
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
 	margin: 0 auto;
 	/* padding: 2rem;
 	text-align: center; */
@@ -26,7 +26,7 @@
 	top: 0;
 	background-color: #f8fffe;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-	margin-bottom: 2rem;
+	margin-bottom: 1rem;
 }
 
 .div-header-child {
@@ -79,6 +79,7 @@
 
 .div-table {
 	font-family: "Lato", sans-serif;
+	margin-top: 8px;
 }
 
 .div-table input[type="checkbox"] {
@@ -91,6 +92,12 @@
 	cursor: pointer;
 }
 
+.div-table th {
+	font-family: "Roboto Slab", sans-serif;
+	font-weight: 400;
+	color: #6c757d;
+}
+
 .table-data-description {
 	white-space: nowrap;
 	overflow: hidden;
@@ -98,7 +105,35 @@
 	max-width: 200px; /* Change this to the maximum width you want */
 }
 
+.table-header-icon {
+	font-size: 16px;
+	margin-bottom: 1px;
+	margin-right: 4px;
+}
+
 /* NOTE: CONTENT styling */
+
+.div-content-header {
+	margin: 0 auto;
+	max-width: 1280px;
+	padding: 1rem 0.75rem;
+	border-radius: 3px;
+	display: flex;
+	align-items: center;
+}
+
+.div-content-header-text {
+	font-family: "Montserrat", sans-serif;
+	font-size: 28px;
+	line-height: 34px;
+	font-weight: 700;
+	margin-left: 12px;
+	color: #6c757d;
+}
+
+.div-content-header-img {
+	width: 45px;
+}
 
 .div-content {
 	margin: 0 auto;
@@ -109,8 +144,9 @@
 }
 
 @media (max-width: 1280px) {
+	.div-content-header,
 	.div-content {
-		margin: 1rem 1rem;
+		margin: 0rem 1rem;
 	}
 }
 

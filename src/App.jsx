@@ -6,6 +6,9 @@ import Tabs from "react-bootstrap/Tabs";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 
+import { BsListCheck, BsCalendar3 } from "react-icons/bs";
+import { IoText } from "react-icons/io5";
+
 import Header from "./components/Header";
 import ModalAdd from "./components/ModalAdd";
 import ModalEdit from "./components/ModalEdit";
@@ -205,6 +208,16 @@ function App() {
 
 			<ModalDelete />
 
+			<div className="div-content-header">
+				<span>
+					<img
+						src="/lexoffice.png"
+						className="div-content-header-img"
+					/>
+				</span>
+				<h2 className="div-content-header-text">To-dos</h2>
+			</div>
+
 			<div className="div-content">
 				<Tabs
 					defaultActiveKey="pending"
@@ -235,7 +248,7 @@ function App() {
 							bsPrefix="button-add button-font"
 							onClick={() => setShowAddModal(true)}
 						>
-							Add To do
+							Add To-do
 						</Button>
 
 						<Button
@@ -317,9 +330,18 @@ function App() {
 												}
 											/>
 										</th>
-										<th>Task name</th>
-										<th>Task description</th>
-										<th>Due</th>
+										<th className="table-header-text">
+											<IoText className="table-header-icon" />{" "}
+											Task name
+										</th>
+										<th>
+											<BsListCheck className="table-header-icon" />{" "}
+											Task description
+										</th>
+										<th>
+											<BsCalendar3 className="table-header-icon" />{" "}
+											Due
+										</th>
 									</tr>
 								</thead>
 								<tbody>
