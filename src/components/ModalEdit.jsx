@@ -67,15 +67,18 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 			centered
 		>
 			<Modal.Header closeButton onHide={handleExit}>
-				<Modal.Title id="contained-modal-title-vcenter">
+				<Modal.Title
+					id="contained-modal-title-vcenter"
+					className="div-content-header-text"
+				>
 					View/Edit To do
 				</Modal.Title>
 			</Modal.Header>
 
-			<Form onSubmit={handleEdit}>
+			<Form onSubmit={handleEdit} className="paragraph-body-font">
 				<Modal.Body>
 					<Form.Group className="mb-3">
-						<Form.Label>Due on</Form.Label>
+						<Form.Label className="modal-label">Due on</Form.Label>
 						<Form.Control
 							type="datetime-local"
 							placeholder="Enter due date and time"
@@ -88,7 +91,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 						/>
 					</Form.Group>
 					<Form.Group className="mb-3">
-						<Form.Label>Title</Form.Label>
+						<Form.Label className="modal-label">Title</Form.Label>
 						<Form.Control
 							type="text"
 							placeholder="Enter title"
@@ -99,7 +102,9 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 						/>
 					</Form.Group>
 					<Form.Group className="mb-3">
-						<Form.Label>Description</Form.Label>
+						<Form.Label className="modal-label">
+							Description
+						</Form.Label>
 						<Form.Control
 							as="textarea"
 							rows={3}
@@ -110,7 +115,7 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 						/>
 					</Form.Group>
 					<Container>
-						<Row>
+						<Row className="modal-label modal-date">
 							<Col>
 								{"Created: "}
 								{new Date(created_at).toLocaleDateString(
@@ -154,10 +159,18 @@ const ModalEdit = ({ updateTodo, onHide, todo, ...props }) => {
 						</Row>
 					</Container>
 					<Modal.Footer>
-						<Button variant="danger" onClick={onHide}>
+						<Button
+							bsPrefix="button-cancel modal-button"
+							variant="danger"
+							onClick={onHide}
+						>
 							Close
 						</Button>
-						<Button variant="success" type="submit">
+						<Button
+							bsPrefix="button-primary"
+							variant="success"
+							type="submit"
+						>
 							Save
 						</Button>
 					</Modal.Footer>

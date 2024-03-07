@@ -61,10 +61,10 @@
 }
 
 .paragraph-body-font {
-	font-family: "Lato", sans-serif;
-	font-size: 13px;
-	line-height: 19px;
-	font-weight: 400;
+	font-family: "Lato", sans-serif !important;
+	font-size: 13px !important;
+	line-height: 19px !important;
+	font-weight: 400 !important;
 }
 
 .strike-through {
@@ -80,7 +80,7 @@
 
 .div-table input[type="checkbox"] {
 	cursor: pointer;
-	transform: scale(1.1); /* Change this to the scale you want */
+	transform: scale(1.1);
 }
 
 .div-table td,
@@ -98,7 +98,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: 200px; /* Change this to the maximum width you want */
+	max-width: 200px;
 }
 
 .table-header-icon {
@@ -119,12 +119,12 @@
 }
 
 .div-content-header-text {
-	font-family: "Montserrat", sans-serif;
-	font-size: 28px;
-	line-height: 34px;
-	font-weight: 700;
-	margin-left: 12px;
-	color: #6c757d;
+	font-family: "Montserrat", sans-serif !important;
+	font-size: 28px !important;
+	line-height: 34px !important;
+	font-weight: 700 !important;
+	margin-left: 12px !important;
+	color: #6c757d !important;
 }
 
 .div-content-header-img {
@@ -144,15 +144,6 @@
 	.div-content {
 		margin: 0rem 1rem;
 	}
-}
-
-.header-not-found {
-	font-family: "Roboto Slab", sans-serif;
-	font-size: 24px;
-	line-height: 29px;
-	font-weight: 400;
-	color: #6c757d;
-	margin-top: 2rem;
 }
 
 /* NOTE: BUTTON styling */
@@ -176,7 +167,7 @@
 	font-size: 14px;
 	line-height: 21px;
 	font-weight: 400;
-	padding: 0.5rem 1rem;
+	padding: 0.6rem 1.2rem;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -198,7 +189,7 @@
 	font-size: 14px;
 	line-height: 21px;
 	font-weight: 400;
-	padding: 0.5rem 1rem;
+	padding: 0.6rem 1.2rem;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -225,7 +216,7 @@
 	font-size: 14px;
 	line-height: 21px;
 	font-weight: 400;
-	padding: 0.5rem 1rem;
+	padding: 0.6rem 1.2rem;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -242,11 +233,50 @@
 	cursor: default;
 }
 
+.button-cancel {
+	font-family: "Roboto Slab", sans-serif !important;
+	font-size: 14px !important;
+	line-height: 21px !important;
+	font-weight: 400 !important;
+	background-color: #6c757d;
+	border-radius: 3px;
+	border: none;
+	color: #ffffff;
+	cursor: pointer;
+	padding: 0.6rem 1.2rem;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	margin: 4px 2px;
+}
+
+.button-cancel:hover {
+	transition: 0.3s;
+	background-color: #8c959a;
+}
+
 /* NOTE: TAB styling */
 
 .tab {
-	font-family: "Roboto Slab", sans-serif;
-	font-size: 14px;
-	line-height: 21px;
-	font-weight: 400;
+	font-family: "Roboto Slab", sans-serif !important;
+	font-size: 14px !important;
+	line-height: 21px !important;
+	font-weight: 400 !important;
+}
+
+/* NOTE: MODAL styling */
+
+.modal-label {
+	font-family: "Roboto Slab", sans-serif !important;
+	font-size: 16px !important;
+	line-height: 19px !important;
+	font-weight: 500 !important;
+}
+
+.modal-button {
+	margin-right: 20px !important;
+}
+
+.modal-date {
+	margin-bottom: 16px;
 }

@@ -53,14 +53,17 @@ const ModalAdd = ({ addTodo, onHide, ...props }) => {
 			centered
 		>
 			<Modal.Header closeButton onHide={handleExit}>
-				<Modal.Title id="contained-modal-title-vcenter">
+				<Modal.Title
+					id="contained-modal-title-vcenter"
+					className="div-content-header-text"
+				>
 					Add To do
 				</Modal.Title>
 			</Modal.Header>
-			<Form onSubmit={handleSave}>
+			<Form onSubmit={handleSave} className="paragraph-body-font">
 				<Modal.Body>
 					<Form.Group className="mb-3">
-						<Form.Label>Due on</Form.Label>
+						<Form.Label className="modal-label">Due on</Form.Label>
 						<Form.Control
 							type="datetime-local"
 							placeholder="Enter due date and time"
@@ -73,7 +76,7 @@ const ModalAdd = ({ addTodo, onHide, ...props }) => {
 						/>
 					</Form.Group>
 					<Form.Group className="mb-3">
-						<Form.Label>Title</Form.Label>
+						<Form.Label className="modal-label">Title</Form.Label>
 						<Form.Control
 							type="text"
 							placeholder="Enter title"
@@ -83,7 +86,9 @@ const ModalAdd = ({ addTodo, onHide, ...props }) => {
 						/>
 					</Form.Group>
 					<Form.Group className="mb-3">
-						<Form.Label>Description</Form.Label>
+						<Form.Label className="modal-label">
+							Description
+						</Form.Label>
 						<Form.Control
 							as="textarea"
 							rows={3}
@@ -94,10 +99,18 @@ const ModalAdd = ({ addTodo, onHide, ...props }) => {
 						/>
 					</Form.Group>
 					<Modal.Footer>
-						<Button variant="danger" onClick={() => handleExit()}>
+						<Button
+							bsPrefix="button-cancel modal-button"
+							variant="danger"
+							onClick={() => handleExit()}
+						>
 							Close
 						</Button>
-						<Button variant="success" type="submit">
+						<Button
+							bsPrefix="button-primary"
+							variant="success"
+							type="submit"
+						>
 							Save
 						</Button>
 					</Modal.Footer>

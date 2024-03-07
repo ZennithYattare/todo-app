@@ -159,19 +159,23 @@ function App() {
 				centered
 			>
 				<Modal.Header closeButton>
-					<Modal.Title>Delete Todo(s)</Modal.Title>
+					<Modal.Title className="div-content-header-text">
+						Delete To do(s)
+					</Modal.Title>
 				</Modal.Header>
-				<Modal.Body>
-					<p>Are you sure you want to delete?</p>
+				<Modal.Body className="modal-label">
+					<p>Are you sure you want to delete the to do(s)?</p>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button
+						bsPrefix="button-cancel modal-button"
 						variant="secondary"
 						onClick={() => setShowDeleteModal(false)}
 					>
 						Cancel
 					</Button>
 					<Button
+						bsPrefix="button-danger modal-button"
 						variant="danger"
 						onClick={() => {
 							handleDelete();
@@ -184,10 +188,6 @@ function App() {
 			</Modal>
 		);
 	};
-
-	console.log("todos: ", todos);
-
-	console.log("todoArray: ", todoArray);
 
 	return (
 		<>
