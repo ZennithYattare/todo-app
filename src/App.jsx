@@ -487,6 +487,7 @@ function App() {
 					</Tab>
 					<Tab eventKey="done" title="Done">
 						<Button
+							bsPrefix="button-font button-primary"
 							variant="success"
 							onClick={markAsPending}
 							disabled={todoArray.length === 0}
@@ -495,6 +496,7 @@ function App() {
 						</Button>
 
 						<Button
+							bsPrefix="button-font button-danger"
 							variant="danger"
 							onClick={() => setShowDeleteModal(true)}
 							disabled={todoArray.length === 0}
@@ -502,117 +504,219 @@ function App() {
 							Delete
 						</Button>
 
-						<Form.Check
-							type="checkbox"
-							label="Select All"
-							checked={selectAllChecked}
-							onChange={(e) => {
-								const newCheckedState = e.target.checked;
-								setSelectAllChecked(newCheckedState); // Update the selectAllChecked state
-
-								// Update the checked state of all todos
-								setTodosDone(
-									todosDone.map((todo) => ({
-										...todo,
-										checked: newCheckedState,
-									}))
-								);
-
-								if (newCheckedState) {
-									// If the checkbox is checked, add the ids of all todos to todoArray
-									setTodoArray(
-										todosDone.map((todo) => todo.id)
-									);
-								} else {
-									// If the checkbox is unchecked, clear todoArray
-									setTodoArray([]);
-								}
-							}}
-						/>
-
-						{todosDone.map((todo) => {
-							if (todo.completed) {
-								return (
-									<div key={todo.id}>
-										<Form>
+						<div style={{ overflow: "auto" }} className="div-table">
+							<Table responsive="sm" bordered hover>
+								<thead>
+									<tr>
+										<th
+											style={{
+												textAlign: "center",
+											}}
+										>
 											<Form.Check
+												className="paragraph-font"
 												type="checkbox"
-												label={todo.title}
-												checked={todo.checked}
+												checked={selectAllChecked}
 												onChange={(e) => {
-													const updatedTodo = {
-														...todo,
-														checked:
-															e.target.checked,
-													};
+													const newCheckedState =
+														e.target.checked;
+													setSelectAllChecked(
+														newCheckedState
+													); // Update the selectAllChecked state
 
-													// Update the checked state of the todo
+													// Update the checked state of all todos
 													setTodosDone(
-														todosDone.map((t) =>
-															t.id === todo.id
-																? updatedTodo
-																: t
+														todosDone.map(
+															(todo) => ({
+																...todo,
+																checked:
+																	newCheckedState,
+															})
 														)
 													);
 
-													if (e.target.checked) {
-														// If the checkbox is checked, add the todo.id to arrayTodo
-														setTodoArray([
-															...todoArray,
-															todo.id,
-														]);
-													} else {
-														// If the checkbox is unchecked, remove the todo.id from arrayTodo
+													if (newCheckedState) {
+														// If the checkbox is checked, add the ids of all todos to todoArray
 														setTodoArray(
-															todoArray.filter(
-																(id) =>
-																	id !==
+															todosDone.map(
+																(todo) =>
 																	todo.id
+															)
+														);
+													} else {
+														// If the checkbox is unchecked, clear todoArray
+														setTodoArray([]);
+
+														// Clear the checked state of all todos
+														setTodosDone(
+															todosDone.map(
+																(todo) => ({
+																	...todo,
+																	checked: false,
+																})
 															)
 														);
 													}
 												}}
 											/>
-										</Form>
-										<h3 className="strike-through">
-											{todo.title}
-										</h3>
-										<p className="strike-through">
-											{todo.description}
-										</p>
-										<p>
-											{"Due on: "}
-											{new Date(
-												todo.deadline
-											).toLocaleDateString("en-US", {
-												year: "numeric",
-												month: "long",
-												day: "numeric",
-											})}
-											{" at "}
-											{new Date(
-												todo.deadline
-											).toLocaleTimeString("en-US", {
-												hour: "2-digit",
-												minute: "2-digit",
-												hour12: true,
-											})}
-										</p>
+										</th>
+										<th className="table-header-text">
+											<IoText className="table-header-icon" />{" "}
+											Task name
+										</th>
+										<th>
+											<BsListCheck className="table-header-icon" />{" "}
+											Task description
+										</th>
+										<th>
+											<BsCalendar3 className="table-header-icon" />{" "}
+											Due
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									{todosDone.some(
+										(todo) => todo.completed
+									) ? (
+										todosDone.map((todo) => {
+											if (todo.completed) {
+												return (
+													<tr key={todo.id}>
+														<td
+															style={{
+																textAlign:
+																	"center",
+															}}
+														>
+															<Form>
+																<Form.Check
+																	type="checkbox"
+																	checked={
+																		todo.checked
+																	}
+																	onChange={(
+																		e
+																	) => {
+																		const updatedTodo =
+																			{
+																				...todo,
+																				checked:
+																					e
+																						.target
+																						.checked,
+																			};
 
-										<Button
-											variant="primary"
-											onClick={() => {
-												if (todo) {
-													handleUpdate(todo.id);
-												}
-											}}
-										>
-											View/Edit
-										</Button>
-									</div>
-								);
-							}
-						})}
+																		// Update the checked state of the todo
+																		setTodosDone(
+																			todosDone.map(
+																				(
+																					t
+																				) =>
+																					t.id ===
+																					todo.id
+																						? updatedTodo
+																						: t
+																			)
+																		);
+
+																		if (
+																			e
+																				.target
+																				.checked
+																		) {
+																			// If the checkbox is checked, add the todo.id to arrayTodo
+																			setTodoArray(
+																				[
+																					...todoArray,
+																					todo.id,
+																				]
+																			);
+																		} else {
+																			// If the checkbox is unchecked, remove the todo.id from arrayTodo
+																			setTodoArray(
+																				todoArray.filter(
+																					(
+																						id
+																					) =>
+																						id !==
+																						todo.id
+																				)
+																			);
+																		}
+																	}}
+																/>
+															</Form>
+														</td>
+														<td
+															className="strike-through"
+															onClick={() => {
+																if (todo) {
+																	handleUpdate(
+																		todo.id
+																	);
+																}
+															}}
+														>
+															{todo.title}
+														</td>
+														<td
+															className="table-data-description strike-through"
+															onClick={() => {
+																if (todo) {
+																	handleUpdate(
+																		todo.id
+																	);
+																}
+															}}
+														>
+															{todo.description}
+														</td>
+														<td
+															className="strike-through"
+															onClick={() => {
+																if (todo) {
+																	handleUpdate(
+																		todo.id
+																	);
+																}
+															}}
+														>
+															{new Date(
+																todo.deadline
+															).toLocaleDateString(
+																"en-US",
+																{
+																	year: "numeric",
+																	month: "long",
+																	day: "numeric",
+																}
+															)}
+															{" at "}
+															{new Date(
+																todo.deadline
+															).toLocaleTimeString(
+																"en-US",
+																{
+																	hour: "2-digit",
+																	minute: "2-digit",
+																	hour12: true,
+																}
+															)}
+														</td>
+													</tr>
+												);
+											}
+										})
+									) : (
+										<tr>
+											<td colSpan={6}>
+												No tasks done yet
+											</td>
+										</tr>
+									)}
+								</tbody>
+							</Table>
+						</div>
 					</Tab>
 				</Tabs>
 			</div>
