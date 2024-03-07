@@ -36,7 +36,12 @@ function App() {
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const handleUpdate = (id) => {
-		const todoToUpdate = todos.find((todo) => todo.id === id);
+		let todoToUpdate = todos.find((todo) => todo.id === id);
+
+		if (!todoToUpdate) {
+			todoToUpdate = todosDone.find((todo) => todo.id === id);
+		}
+
 		setCurrentTodo(todoToUpdate);
 		setShowEditModal(true);
 	};
@@ -148,6 +153,12 @@ function App() {
 			prevTodos.map((todo) =>
 				todo.id === updatedTodo.id ? updatedTodo : todo
 			)
+		);
+
+		setTodosDone(
+			getAllTodos()
+				.filter((todo) => todo.completed)
+				.map((todo) => ({ ...todo, checked: false }))
 		);
 	};
 
