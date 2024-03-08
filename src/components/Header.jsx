@@ -5,7 +5,7 @@ const Header = () => {
 				<div className="div-header-child">
 					<h1 className="header-weight-600">
 						<span>
-							<img src="/image.jpeg" className="header-logo" />
+							<img src="./image.jpeg" className="header-logo" />
 						</span>
 						LexMeet
 					</h1>
