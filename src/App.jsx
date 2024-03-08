@@ -222,7 +222,7 @@ function App() {
 			<div className="div-content-header">
 				<span>
 					<img
-						src="./lexoffice.png"
+						src="lexoffice.png"
 						className="div-content-header-img"
 					/>
 				</span>
