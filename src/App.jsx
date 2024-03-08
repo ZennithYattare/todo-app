@@ -391,8 +391,7 @@ function App() {
 																							.checked,
 																				};
 
-																			// Update the checked state of the todo
-																			setTodos(
+																			const updatedTodos =
 																				todos.map(
 																					(
 																						t
@@ -401,7 +400,10 @@ function App() {
 																						todo.id
 																							? updatedTodo
 																							: t
-																				)
+																				);
+
+																			setTodos(
+																				updatedTodos
 																			);
 
 																			if (
@@ -409,7 +411,6 @@ function App() {
 																					.target
 																					.checked
 																			) {
-																				// If the checkbox is checked, add the todo.id to todoArray
 																				setTodoArray(
 																					[
 																						...todoArray,
@@ -417,7 +418,6 @@ function App() {
 																					]
 																				);
 																			} else {
-																				// If the checkbox is unchecked, remove the todo.id from todoArray
 																				setTodoArray(
 																					todoArray.filter(
 																						(
@@ -428,6 +428,21 @@ function App() {
 																					)
 																				);
 																			}
+
+																			// Check if all todos are checked
+																			const allChecked =
+																				updatedTodos.every(
+																					(
+																						todo
+																					) =>
+																						todo.checked
+																				);
+
+																			// If all todos are checked, set selectAllChecked to true
+																			// Otherwise, set it to false
+																			setSelectAllChecked(
+																				allChecked
+																			);
 																		}}
 																	/>
 																</Form>
@@ -634,8 +649,7 @@ function App() {
 																							.checked,
 																				};
 
-																			// Update the checked state of the todo
-																			setTodosDone(
+																			const updatedTodos =
 																				todosDone.map(
 																					(
 																						t
@@ -644,7 +658,10 @@ function App() {
 																						todo.id
 																							? updatedTodo
 																							: t
-																				)
+																				);
+
+																			setTodosDone(
+																				updatedTodos
 																			);
 
 																			if (
@@ -652,7 +669,6 @@ function App() {
 																					.target
 																					.checked
 																			) {
-																				// If the checkbox is checked, add the todo.id to arrayTodo
 																				setTodoArray(
 																					[
 																						...todoArray,
@@ -660,7 +676,6 @@ function App() {
 																					]
 																				);
 																			} else {
-																				// If the checkbox is unchecked, remove the todo.id from arrayTodo
 																				setTodoArray(
 																					todoArray.filter(
 																						(
@@ -671,6 +686,21 @@ function App() {
 																					)
 																				);
 																			}
+
+																			// Check if all todos are checked
+																			const allChecked =
+																				updatedTodos.every(
+																					(
+																						todo
+																					) =>
+																						todo.checked
+																				);
+
+																			// If all todos are checked, set selectAllChecked to true
+																			// Otherwise, set it to false
+																			setSelectAllChecked(
+																				allChecked
+																			);
 																		}}
 																	/>
 																</Form>
