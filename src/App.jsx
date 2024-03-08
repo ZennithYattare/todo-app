@@ -528,6 +528,9 @@ function App() {
 												className="paragraph-font"
 												type="checkbox"
 												checked={selectAllChecked}
+												disabled={
+													todosDone.length === 0
+												}
 												onChange={(e) => {
 													const newCheckedState =
 														e.target.checked;
