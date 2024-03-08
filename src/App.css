@@ -8,7 +8,7 @@
 	width: 100%;
 	min-height: 100vh;
 	margin: 0 auto;
-	color: rgb(55, 53, 47);
+	color: rgb(55, 53, 47) !important;
 	background-color: #f5f5f5;
 }
 
@@ -86,6 +86,7 @@
 .div-table td,
 .div-table td input[type="checkbox"] {
 	cursor: pointer;
+	color: #212529 !important;
 }
 
 .div-table th {
